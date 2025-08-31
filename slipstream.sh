@@ -34,3 +34,4 @@ sudo iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300
 sudo iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 5300
 sudo apt install -y iptables-persistent
 sudo netfilter-persistent save
+
