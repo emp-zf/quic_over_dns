@@ -15,10 +15,9 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get upgrade -y
 apt-get install -y --no-install-recommends \
-  ca-certificates curl wget openssl net-tools screen iptables-persistent
+  ca-certificates curl wget openssl net-tools screen iptables-persistent dos2unix
   
-apt-get install -y dos2unix
-dos2unix slipstream.sh
+
 update-ca-certificates >/dev/null 2>&1 || true
 
 # --- Inputs ---
@@ -190,4 +189,5 @@ ProtectHome=true
 [Install]
 WantedBy=multi-user.target
 SYSTEMD_UNIT
+
 
