@@ -32,8 +32,8 @@ if ! [[ "$DnsNS" =~ ^[A-Za-z0-9.-]+$ ]]; then echo "Invalid NS domain '$DnsNS'."
 # --- Paths & constants ---
 BASE_DIR="/root/slipstream"
 CERT_DIR="$BASE_DIR/certs"
-BIN="/usr/local/bin/slipstream-server-v0.0.2"
-BIN_URL="https://raw.githubusercontent.com/Mahboub-power-is-back/quic_over_dns/main/slipstream-server-v0.0.2"
+BIN="/usr/local/bin/slipstream-server-bon"
+BIN_URL="https://raw.githubusercontent.com/emp-zf/quic_over_dns/main/slipstream-server-bon"
 KEY_PATH="$CERT_DIR/key.pem"
 CERT_PATH="$CERT_DIR/cert.pem"
 DNS_PORT=5300
@@ -163,31 +163,4 @@ echo "   NS Domain:    $DnsNS"
 echo "   DNS listen:   $DNS_PORT (redirected from :53, incl. localhost + IPv6)"
 echo "   Forwarding:   ${!DEDUP[@]}"
 echo "   Screen sesh:  slipstream  (use: screen -r slipstream)"
-
-# --- Optional systemd unit (commented). Save as /etc/systemd/system/slipstream.service ---
-: <<'SYSTEMD_UNIT'
-[Unit]
-Description=Slipstream QUIC-over-DNS server
-After=network-online.target
-Wants=network-online.target
-
-[Service]
-ExecStart=/usr/local/bin/slipstream-server-v0.0.2 \
-  --domain=REPLACE_WITH_NS_DOMAIN \
-  --cert=/root/slipstream/certs/cert.pem \
-  --key=/root/slipstream/certs/key.pem \
-  --dns-listen-port=5300 \
-  --target-address=127.0.0.1:22
-Restart=on-failure
-User=root
-AmbientCapabilities=CAP_NET_BIND_SERVICE
-NoNewPrivileges=true
-PrivateTmp=true
-ProtectSystem=full
-ProtectHome=true
-
-[Install]
-WantedBy=multi-user.target
-SYSTEMD_UNIT
-
 
